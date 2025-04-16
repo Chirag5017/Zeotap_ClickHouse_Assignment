@@ -5,13 +5,12 @@ function App() {
   const [host, setHost] = useState('');
   const [port, setPort] = useState('');
   const [database, setDatabase] = useState('');
-  const [user, setUser] = useState('');
   const [token, setToken] = useState('');
   const [tableName, setTableName] = useState('');
   const [file, setFile] = useState(null);
 
   const handleUpload = async () => {
-    if (!file || !host || !port || !database || !user || !token || !tableName) {
+    if (!file || !host || !port || !database  || !token || !tableName) {
       alert('❌ Please fill in all fields and upload a file.');
       return;
     }
@@ -21,7 +20,6 @@ function App() {
     formData.append('host', host);
     formData.append('port', port);
     formData.append('database', database);
-    formData.append('user', user);
     formData.append('token', token);
     formData.append('tableName', tableName);
 
@@ -30,9 +28,9 @@ function App() {
         'http://localhost:5000/api/ingest/flat-to-clickhouse',
         formData
       );
-      alert(`✅ Uploaded ${res.data.count} records successfully!`);
+      alert(`Uploaded ${res.data.count} records successfully!`);
     } catch (err) {
-      alert('❌ Upload failed: ' + err.message);
+      alert('Upload failed: ' + err.message);
     }
   };
 
@@ -45,7 +43,6 @@ function App() {
           <input type="text" placeholder="Host (e.g., http://localhost)" value={host} onChange={(e) => setHost(e.target.value)} className="input" />
           <input type="text" placeholder="Port (e.g., 8123)" value={port} onChange={(e) => setPort(e.target.value)} className="input" />
           <input type="text" placeholder="Database" value={database} onChange={(e) => setDatabase(e.target.value)} className="input" />
-          <input type="text" placeholder="User" value={user} onChange={(e) => setUser(e.target.value)} className="input" />
           <input type="text" placeholder="JWT Token" value={token} onChange={(e) => setToken(e.target.value)} className="input col-span-2" />
           <input type="text" placeholder="Table Name" value={tableName} onChange={(e) => setTableName(e.target.value)} className="input col-span-2" />
           <input type="file" onChange={(e) => setFile(e.target.files[0])} className="col-span-2" />

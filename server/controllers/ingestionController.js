@@ -5,15 +5,15 @@ import { ClickHouse as ClickHouseClient } from 'clickhouse';
 export const uploadCSVToClickhouse = async (req, res) => {
   try {
     const filePath = req.file.path;
-    const { tableName, host, port, database, user, token } = req.body;
+    const { tableName, host, port, database, token } = req.body;
 
     const clickhouse = new ClickHouseClient({
       url: host,
       port: port,
       debug: false,
       basicAuth: {
-        username: user,
-        password: '' // or you can support password if needed
+        username: 'user',
+        password: 'user'
       },
       headers: {
         Authorization: `Bearer ${token}`
@@ -39,15 +39,15 @@ export const uploadCSVToClickhouse = async (req, res) => {
 
 export const fetchClickhouseToFlatFile = async (req, res) => {
   try {
-    const { host, port, database, user, token, tableName, columns } = req.body;
+    const { host, port, database, token, tableName, columns } = req.body;
 
     const clickhouse = new ClickHouseClient({
       url: host,
       port: port,
       debug: false,
       basicAuth: {
-        username: user,
-        password: '',
+        username: 'user',
+        password: 'user',
       },
       headers: {
         Authorization: `Bearer ${token}`
